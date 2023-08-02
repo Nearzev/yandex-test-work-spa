@@ -4,7 +4,13 @@ import checkAuth from './utils/CheckAuth.js';
 import { registerValidation } from './validations/auth.js';
 import { isAuth, login, register } from './controllers/UserController.js';
 
-mongoose.connect('mongodb+srv://Nearzev:rjreqkjdh1@cluster0.fva8mhe.mongodb.net/test-spa')
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const DBUrl = process.env.MONGODBURL;
+
+mongoose.connect(DBUrl)
 .then(() => console.log('DB ok'))
 .catch((err) => console.log('DB err', err));
 
