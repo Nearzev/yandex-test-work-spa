@@ -4,6 +4,12 @@ import bcrypt from 'bcrypt'
 import { validationResult } from "express-validator"
 import UserModel from '../Models/User.js';
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const SECRETKEY = process.env.SECRETKEY;
+
 export const register =  async (req, res) => {
     try {
         const errors = validationResult(req);
@@ -26,7 +32,7 @@ export const register =  async (req, res) => {
             {
                 _id: user._id,
             }, 
-            'asfdsax',
+            SECRETKEY,
             {
                 expiresIn: '30d',
             },
@@ -52,7 +58,7 @@ export const login =  async (req, res) => {
         const user = await UserModel.findOne({ username: req.body.username });
 
         if(!user) {
-            return req.status(404).json({
+            return res.status(404).json({
                 message: 'Неверный логин или пароль',
             });
         }
@@ -69,7 +75,7 @@ export const login =  async (req, res) => {
             {
                 _id: user._id,
             }, 
-            'asfdsax',
+            SECRETKEY,
             {
                 expiresIn: '30d',
             },
@@ -95,7 +101,7 @@ export const isAuth =  async(req, res) => {
         const user = await UserModel.findById(req.userId);
 
         if(!user) {
-            return res.status(404).json({
+            return res.status(401).json({
                 message: 'Вы не авторизованы'
             }
             );
@@ -103,7 +109,7 @@ export const isAuth =  async(req, res) => {
 
         const {passwordHash, ...userData} = user._doc;
 
-        res.json(userData,);
+        res.json(userData);
     } catch (err) {
         console.log(err)
         res.status(500).json({

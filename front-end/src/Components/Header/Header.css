@@ -1,0 +1,64 @@
+/* Header.css */
+.header {
+    background-color: #737272;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.nav-item:last-child {
+    margin-right: 0; /* Убираем правый отступ у последнего элемента списка */
+}
+
+.link {
+    text-decoration: none;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.link:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+.button-wrapper {
+    display: flex;
+    align-items: center; /* Центрируем кнопки вертикально */
+}
+
+.button {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.button:first-child {
+    margin-left: 0; /* Убираем левый отступ у первой кнопки */
+}
+
+.button:hover {
+    background-color: #fff;
+    color: #333;
+    border-color: #fff;
+}

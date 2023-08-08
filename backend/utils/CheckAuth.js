@@ -1,11 +1,17 @@
 import jwt from "jsonwebtoken";
 
-export default (req, res, next) => {
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const SECRETKEY = process.env.SECRETKEY;
+
+export const checkAuth = (req, res, next) => {
     const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
 
     if(token) {
         try {
-            const decoded = jwt.verify(token, 'asfdsax');
+            const decoded = jwt.verify(token, SECRETKEY);
 
             req.userId = decoded._id;
             next();
@@ -15,7 +21,7 @@ export default (req, res, next) => {
             });
         }
     } else {
-        return res.status(403).json({
+        return res.status(401).json({
             message: 'Нет доступа'
         });
     }

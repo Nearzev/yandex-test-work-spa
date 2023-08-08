@@ -1,8 +1,9 @@
 import express, { request } from 'express';
 import mongoose from 'mongoose';
-import checkAuth from './utils/CheckAuth.js';
-import { registerValidation } from './validations/auth.js';
+import { checkAuth } from './utils/CheckAuth.js';
+import { authValidation } from './validations/auth.js';
 import { isAuth, login, register } from './controllers/UserController.js';
+import cors from 'cors';
 
 import dotenv from 'dotenv';
 
@@ -17,10 +18,11 @@ mongoose.connect(DBUrl)
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
-app.post('/register', registerValidation, register)
+app.post('/register', authValidation, register)
 
-app.post('/login', login);
+app.post('/login', authValidation, login);
 
 app.get('/me', checkAuth, isAuth);
 
